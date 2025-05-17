@@ -30,6 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kohsuke.github.GHEvent;
 import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GHDeployKey;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -93,16 +94,16 @@ public class GithubRepositoryServiceTest {
     }
 
 
-//    @Test //TODO: uncomment this when encryption service branch is merged in
-//    public void should_delete_existing_deploy_key_before_adding_new_one() throws IOException {
-//        when(githubRepository.isPrivate()).thenReturn(true);
-//        GHDeployKey deployKey = mock(GHDeployKey.class);
-//        when(deployKey.getTitle()).thenReturn("DotCi");
-//        when(githubRepository.getDeployKeys()).thenReturn(Arrays.asList(deployKey));
-//
-//        githubRepositoryService.addDeployKey();
-//
-//        verify(deployKey).delete();
-//
-//    }
+    @Test
+    public void should_delete_existing_deploy_key_before_adding_new_one() throws IOException {
+        when(githubRepository.isPrivate()).thenReturn(true);
+        GHDeployKey deployKey = mock(GHDeployKey.class);
+        when(deployKey.getTitle()).thenReturn("DotCi");
+        when(githubRepository.getDeployKeys()).thenReturn(Arrays.asList(deployKey));
+
+        githubRepositoryService.addDeployKey();
+
+        verify(deployKey).delete();
+
+    }
 }
